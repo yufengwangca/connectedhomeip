@@ -2816,6 +2816,9 @@ CHIP_ERROR GeneralCommissioningCluster::CommissioningComplete(Callback::Cancelab
     (void) onSuccessCallback;
     (void) onFailureCallback;
 
+
+    ChipLogError(Zcl, "yujuan: GeneralCommissioningCluster::CommissioningComplete: 1");
+
     app::CommandPathParams cmdParams = { mEndpoint, /* group id */ 0, mClusterId, kCommissioningCompleteCommandId,
                                          (chip::app::CommandPathFlags::kEndpointIdValid) };
     app::Command * ZCLcommand        = mDevice->GetCommandSender();
@@ -2830,6 +2833,9 @@ CHIP_ERROR GeneralCommissioningCluster::CommissioningComplete(Callback::Cancelab
 #else
     uint8_t seqNum                            = mDevice->GetNextSequenceNumber();
     System::PacketBufferHandle encodedCommand = encodeGeneralCommissioningClusterCommissioningCompleteCommand(seqNum, mEndpoint);
+
+    ChipLogError(Zcl, "yujuan: GeneralCommissioningCluster::CommissioningComplete: 2");
+
     return SendCommand(seqNum, std::move(encodedCommand), onSuccessCallback, onFailureCallback);
 #endif
 }
@@ -4110,6 +4116,8 @@ CHIP_ERROR NetworkCommissioningCluster::AddWiFiNetwork(Callback::Cancelable * on
     (void) onSuccessCallback;
     (void) onFailureCallback;
 
+    ChipLogError(Zcl, "yujuan: NetworkCommissioningCluster::AddWiFiNetwork: 1");
+
     app::CommandPathParams cmdParams = { mEndpoint, /* group id */ 0, mClusterId, kAddWiFiNetworkCommandId,
                                          (chip::app::CommandPathFlags::kEndpointIdValid) };
     app::Command * ZCLcommand        = mDevice->GetCommandSender();
@@ -4134,6 +4142,9 @@ CHIP_ERROR NetworkCommissioningCluster::AddWiFiNetwork(Callback::Cancelable * on
     uint8_t seqNum = mDevice->GetNextSequenceNumber();
     System::PacketBufferHandle encodedCommand =
         encodeNetworkCommissioningClusterAddWiFiNetworkCommand(seqNum, mEndpoint, ssid, credentials, breadcrumb, timeoutMs);
+
+    ChipLogError(Zcl, "yujuan: NetworkCommissioningCluster::AddWiFiNetwork: 2");
+
     return SendCommand(seqNum, std::move(encodedCommand), onSuccessCallback, onFailureCallback);
 #endif
 }
