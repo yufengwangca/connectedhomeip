@@ -204,7 +204,6 @@ if (chip_device_platform != "none" && chip_device_platform != "external") {
       "../include/platform/TimeSyncManager.h",
       "../include/platform/internal/BLEManager.h",
       "../include/platform/internal/CHIPDeviceLayerInternal.h",
-      "../include/platform/internal/DeviceDescriptionServer.h",
       "../include/platform/internal/DeviceNetworkInfo.h",
       "../include/platform/internal/DeviceNetworkProvisioning.h",
       "../include/platform/internal/EventLogging.h",
