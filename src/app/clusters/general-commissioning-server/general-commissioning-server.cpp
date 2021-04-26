@@ -24,6 +24,7 @@
 #include <app/Command.h>
 #include <app/util/af.h>
 #include <lib/support/Span.h>
+#include <lib/support/logging/CHIPLogging.h>
 
 using namespace chip;
 
@@ -31,6 +32,9 @@ bool emberAfGeneralCommissioningClusterArmFailSafeCallback(chip::app::Command * 
                                                            uint64_t breadcrumb, uint32_t timeoutMs)
 {
     EmberAfStatus status = EMBER_ZCL_STATUS_FAILURE;
+
+    ChipLogDetail(Zcl, "yujuan: emberAfGeneralCommissioningClusterArmFailSafeCallback");
+
     emberAfSendImmediateDefaultResponse(status);
     return true;
 }
@@ -38,6 +42,8 @@ bool emberAfGeneralCommissioningClusterArmFailSafeCallback(chip::app::Command * 
 bool emberAfGeneralCommissioningClusterCommissioningCompleteCallback(chip::app::Command * commandObj)
 {
     EmberAfStatus status = EMBER_ZCL_STATUS_FAILURE;
+
+    ChipLogDetail(Zcl, "yujuan: emberAfGeneralCommissioningClusterCommissioningCompleteCallback");
     emberAfSendImmediateDefaultResponse(status);
     return true;
 }

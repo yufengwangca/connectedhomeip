@@ -104,6 +104,8 @@
 #include <app/util/chip-message-send.h>
 #include <app/util/util.h>
 
+#include <support/logging/CHIPLogging.h>
+
 using namespace chip;
 
 // Querying the Ember Stack for what libraries are present.
@@ -631,6 +633,9 @@ EmberStatus emAfSend(EmberOutgoingMessageType type, uint64_t indexOrDestination,
     // tracks this.
     *messageTag        = INVALID_MESSAGE_TAG;
     EmberStatus status = EMBER_SUCCESS;
+
+    ChipLogError(Zcl, "yujuan: emAfSend");
+
     switch (type)
     {
     case EMBER_OUTGOING_VIA_BINDING: {

@@ -159,6 +159,8 @@ EmberAfNetworkCommissioningError OnAddWiFiNetworkCommandCallbackInternal(app::Co
 {
     EmberAfNetworkCommissioningError err = EMBER_ZCL_NETWORK_COMMISSIONING_ERROR_BOUNDS_EXCEEDED;
 
+    ChipLogDetail(Zcl, "yujuan: OnAddWiFiNetworkCommandCallbackInternal");
+
     for (size_t i = 0; i < kMaxNetworks; i++)
     {
         if (sNetworks[i].mNetworkType == NetworkType::kUndefined)
@@ -252,6 +254,8 @@ EmberAfNetworkCommissioningError OnEnableNetworkCommandCallbackInternal(app::Com
 {
     size_t networkSeq;
     EmberAfNetworkCommissioningError err = EMBER_ZCL_NETWORK_COMMISSIONING_ERROR_NETWORK_ID_NOT_FOUND;
+
+    ChipLogDetail(Zcl, "yujuan: OnEnableNetworkCommandCallbackInternal");
 
     for (networkSeq = 0; networkSeq < kMaxNetworks; networkSeq++)
     {

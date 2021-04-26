@@ -57,6 +57,9 @@ EmberStatus chipSendUnicast(NodeId destination, EmberApsFrame * apsFrame, uint16
 {
     uint16_t frameSize           = encodeApsFrame(nullptr, 0, apsFrame);
     uint32_t dataLengthUnchecked = uint32_t(frameSize) + uint32_t(messageLength);
+
+    ChipLogError(Zcl, "yujuan: chipSendUnicast");
+
     if (dataLengthUnchecked > UINT16_MAX)
     {
         // Definitely too long for a packet!
