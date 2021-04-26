@@ -52,7 +52,7 @@ CHIP_ERROR ClusterBase::SendCommand(uint8_t seqNum, chip::System::PacketBufferHa
     VerifyOrExit(mDevice != nullptr, err = CHIP_ERROR_INCORRECT_STATE);
     VerifyOrExit(!payload.IsNull(), err = CHIP_ERROR_INTERNAL);
 
-    ChipLogError(Zcl, "yujuan: ClusterBase::SendCommand");
+    ChipLogError(Controller, "yujuan: Controller::ClusterBase::SendCommand");
 
     if (onSuccessCallback != nullptr || onFailureCallback != nullptr)
     {

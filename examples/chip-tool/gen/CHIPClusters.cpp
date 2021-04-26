@@ -2816,7 +2816,6 @@ CHIP_ERROR GeneralCommissioningCluster::CommissioningComplete(Callback::Cancelab
     (void) onSuccessCallback;
     (void) onFailureCallback;
 
-
     ChipLogError(Zcl, "yujuan: GeneralCommissioningCluster::CommissioningComplete: 1");
 
     app::CommandPathParams cmdParams = { mEndpoint, /* group id */ 0, mClusterId, kCommissioningCompleteCommandId,
