@@ -20,8 +20,9 @@
  *          Provides the implementation of the DeviceControlServer object.
  */
 
-#include <platform/ConfigurationManager.h>
 #include <platform/internal/DeviceControlServer.h>
+
+#include <platform/ConfigurationManager.h>
 
 namespace chip {
 namespace DeviceLayer {
@@ -32,25 +33,25 @@ static constexpr size_t kCountryCodeLen = 2;
 
 DeviceControlServer DeviceControlServer::sInstance;
 
-CHIP_ERROR DeviceControlServer::HandleArmFailSafe(uint16_t expiryLengthSeconds)
+CHIP_ERROR DeviceControlServer::ArmFailSafe(uint16_t expiryLengthSeconds)
 {
     // TODO
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR DeviceControlServer::HandleDisarmFailSafe(void)
+CHIP_ERROR DeviceControlServer::DisarmFailSafe()
 {
     // TODO
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR DeviceControlServer::HandleCommissioningComplete(void)
+CHIP_ERROR DeviceControlServer::CommissioningComplete()
 {
     // TODO
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR DeviceControlServer::HandleSetRegulatoryConfig(uint8_t location, uint8_t * countryCode, uint64_t breadcrumb)
+CHIP_ERROR DeviceControlServer::SetRegulatoryConfig(uint8_t location, uint8_t * countryCode, uint64_t breadcrumb)
 {
     CHIP_ERROR err = CHIP_NO_ERROR;
 
