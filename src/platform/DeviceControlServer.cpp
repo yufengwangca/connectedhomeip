@@ -28,9 +28,6 @@ namespace chip {
 namespace DeviceLayer {
 namespace Internal {
 
-// Conforms to ISO 3166-1 Alpha-2
-static constexpr size_t kCountryCodeLen = 2;
-
 DeviceControlServer DeviceControlServer::sInstance;
 
 CHIP_ERROR DeviceControlServer::ArmFailSafe(uint16_t expiryLengthSeconds)
@@ -51,14 +48,14 @@ CHIP_ERROR DeviceControlServer::CommissioningComplete()
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR DeviceControlServer::SetRegulatoryConfig(uint8_t location, uint8_t * countryCode, uint64_t breadcrumb)
+CHIP_ERROR DeviceControlServer::SetRegulatoryConfig(uint8_t location, const char * countryCode, uint64_t breadcrumb)
 {
     CHIP_ERROR err = CHIP_NO_ERROR;
 
     err = ConfigurationMgr().StoreRegulatoryLocation(location);
     SuccessOrExit(err);
 
-    err = ConfigurationMgr().StoreCountryCode(reinterpret_cast<const char *>(countryCode), kCountryCodeLen);
+    err = ConfigurationMgr().StoreCountryCode(countryCode, strlen(countryCode));
     SuccessOrExit(err);
 
     err = ConfigurationMgr().StoreBreadcrumb(breadcrumb);

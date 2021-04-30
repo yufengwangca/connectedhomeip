@@ -36,7 +36,7 @@ public:
     CHIP_ERROR ArmFailSafe(uint16_t expiryLengthSeconds);
     CHIP_ERROR DisarmFailSafe();
     CHIP_ERROR CommissioningComplete();
-    CHIP_ERROR SetRegulatoryConfig(uint8_t location, uint8_t * countryCode, uint64_t breadcrumb);
+    CHIP_ERROR SetRegulatoryConfig(uint8_t location, const char * countryCode, uint64_t breadcrumb);
 
 private:
     // ===== Members for internal use by the following friends.

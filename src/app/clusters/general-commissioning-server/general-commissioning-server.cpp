@@ -40,7 +40,7 @@ bool emberAfGeneralCommissioningClusterArmFailSafeCallback(chip::app::Command * 
 
 bool emberAfGeneralCommissioningClusterCommissioningCompleteCallback(chip::app::Command * commandObj)
 {
-    ChipLogDetail(Zcl, "yujuan: emberAfGeneralCommissioningClusterSetRegulatoryConfigCallback");
+    ChipLogDetail(Zcl, "yujuan: emberAfGeneralCommissioningClusterCommissioningCompleteCallback");
 
     CHIP_ERROR err = DeviceLayer::Internal::DeviceControlSvr().CommissioningComplete();
     emberAfSendImmediateDefaultResponse(err == CHIP_NO_ERROR ? EMBER_ZCL_STATUS_SUCCESS : EMBER_ZCL_STATUS_FAILURE);
@@ -51,14 +51,11 @@ bool emberAfGeneralCommissioningClusterCommissioningCompleteCallback(chip::app::
 bool emberAfGeneralCommissioningClusterSetRegulatoryConfigCallback(chip::app::Command * commandObj, uint8_t location,
                                                                    uint8_t * countryCode, uint64_t breadcrumb, uint32_t timeoutMs)
 {
-
     ChipLogDetail(Zcl, "yujuan: emberAfGeneralCommissioningClusterSetRegulatoryConfigCallback");
+	
+    CHIP_ERROR err = DeviceLayer::Internal::DeviceControlSvr().SetRegulatoryConfig(
+        location, reinterpret_cast<const char *>(countryCode), breadcrumb);
 
-    ChipLogDetail(Zcl, "yujuan: emberAfStringLength(countryCode:%d", emberAfStringLength(countryCode));
-    
-    ChipLogDetail(Zcl, "yujuan: countryCode:%s", reinterpret_cast<const char *>(countryCode));
-
-    CHIP_ERROR err = DeviceLayer::Internal::DeviceControlSvr().SetRegulatoryConfig(location, countryCode, breadcrumb);
     emberAfSendImmediateDefaultResponse(err == CHIP_NO_ERROR ? EMBER_ZCL_STATUS_SUCCESS : EMBER_ZCL_STATUS_FAILURE);
 
     return true;
