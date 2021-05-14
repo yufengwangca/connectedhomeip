@@ -245,6 +245,8 @@ CHIP_ERROR SecureSessionMgr::NewPairing(const Optional<Transport::PeerAddress> &
         mPeerConnections.CreateNewPeerConnectionState(Optional<NodeId>::Value(peerNodeId), peerKeyId, localKeyId, &state));
     ReturnErrorCodeIf(state == nullptr, CHIP_ERROR_NO_MEMORY);
 
+    ChipLogError(Inet, "yujun: SecureSessionMgr::NewPairing::session.peerKeyId:%d, localKeyId:%d", peerKeyId, localKeyId);
+
     state->SetAdminId(admin);
     state->SetTransport(transport);
 
@@ -264,6 +266,8 @@ CHIP_ERROR SecureSessionMgr::NewPairing(const Optional<Transport::PeerAddress> &
     }
 
     ReturnErrorOnFailure(pairing->DeriveSecureSession(state->GetSecureSession(), direction));
+
+    ChipLogError(Inet, "yujun: SecureSessionMgr::NewPairing::session.mPeerNodeId:%d, session.mPeerKeyId:%d", state->GetPeerNodeId(), state->GetPeerKeyID());
 
     if (mCB != nullptr)
     {
@@ -466,6 +470,9 @@ void SecureSessionMgr::SecureMessageDispatch(const PacketHeader & packetHeader, 
     if (mCB != nullptr)
     {
         SecureSessionHandle session(state->GetPeerNodeId(), state->GetPeerKeyID(), state->GetAdminId());
+
+        ChipLogError(Inet, "yujun: SecureSessionMgr::SecureMessageDispatch::session.mPeerNodeId:%d, session.mPeerKeyId:%d", session.mPeerNodeId, session.mPeerKeyId);
+
         mCB->OnMessageReceived(packetHeader, payloadHeader, session, peerAddress, std::move(msg), this);
     }
 

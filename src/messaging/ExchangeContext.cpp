@@ -286,6 +286,12 @@ void ExchangeContext::Free()
 bool ExchangeContext::MatchExchange(SecureSessionHandle session, const PacketHeader & packetHeader,
                                     const PayloadHeader & payloadHeader)
 {
+
+    
+
+    ChipLogError(ExchangeManager, "yujun: MatchExchange::session.mPeerNodeId:%d, session.mPeerKeyId:%d", session.mPeerNodeId, session.mPeerKeyId);
+    ChipLogError(ExchangeManager, "yujun: MatchExchange::mSecureSession.mPeerNodeId:%d, mSecureSession.mPeerKeyId:%d", mSecureSession.mPeerNodeId, mSecureSession.mPeerKeyId);    
+
     // A given message is part of a particular exchange if...
     return
 

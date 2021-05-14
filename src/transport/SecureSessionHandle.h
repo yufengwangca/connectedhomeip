@@ -41,7 +41,6 @@ public:
     NodeId GetPeerNodeId() const { return mPeerNodeId; }
     uint16_t GetPeerKeyId() const { return mPeerKeyId; }
 
-private:
     friend class SecureSessionMgr;
     NodeId mPeerNodeId;
     uint16_t mPeerKeyId;
