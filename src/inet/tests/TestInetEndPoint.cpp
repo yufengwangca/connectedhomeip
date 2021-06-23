@@ -499,7 +499,7 @@ static void TestInetEndPointLimit(nlTestSuite * inSuite, void * inContext)
 #endif //
     UDPEndPoint * testUDPEP = nullptr;
     TCPEndPoint * testTCPEP = nullptr;
-    CHIP_ERROR err;
+    CHIP_ERROR err          = CHIP_NO_ERROR;
     char numTimersTest[CHIP_SYSTEM_CONFIG_NUM_TIMERS + 1];
 
 #if INET_CONFIG_ENABLE_RAW_ENDPOINT
