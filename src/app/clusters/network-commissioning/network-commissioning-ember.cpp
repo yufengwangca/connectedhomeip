@@ -45,6 +45,8 @@ bool emberAfNetworkCommissioningClusterAddThreadNetworkCallback(chip::app::Comma
 bool emberAfNetworkCommissioningClusterAddWiFiNetworkCallback(chip::app::Command * commandObj, ByteSpan ssid, ByteSpan credentials,
                                                               uint64_t breadcrumb, uint32_t timeoutMs)
 {
+    ChipLogProgress(Zcl, "yujuan: emberAfNetworkCommissioningClusterAddWiFiNetworkCallback");
+
     EmberAfNetworkCommissioningError err = chip::app::clusters::NetworkCommissioning::OnAddWiFiNetworkCommandCallbackInternal(
         nullptr, emberAfCurrentEndpoint(), ssid, credentials, breadcrumb, timeoutMs);
     emberAfSendImmediateDefaultResponse(err == EMBER_ZCL_NETWORK_COMMISSIONING_ERROR_SUCCESS ? EMBER_ZCL_STATUS_SUCCESS
@@ -55,6 +57,8 @@ bool emberAfNetworkCommissioningClusterAddWiFiNetworkCallback(chip::app::Command
 bool emberAfNetworkCommissioningClusterEnableNetworkCallback(chip::app::Command * commandObj, ByteSpan networkID,
                                                              uint64_t breadcrumb, uint32_t timeoutMs)
 {
+    ChipLogProgress(Zcl, "yujuan: emberAfNetworkCommissioningClusterEnableNetworkCallback");
+
     EmberAfNetworkCommissioningError err = chip::app::clusters::NetworkCommissioning::OnEnableNetworkCommandCallbackInternal(
         nullptr, emberAfCurrentEndpoint(), networkID, breadcrumb, timeoutMs);
     emberAfSendImmediateDefaultResponse(err == EMBER_ZCL_NETWORK_COMMISSIONING_ERROR_SUCCESS ? EMBER_ZCL_STATUS_SUCCESS

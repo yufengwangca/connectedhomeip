@@ -199,11 +199,12 @@ EmberAfNetworkCommissioningError OnAddWiFiNetworkCommandCallbackInternal(app::Co
 
     VerifyOrExit(err == EMBER_ZCL_NETWORK_COMMISSIONING_ERROR_SUCCESS, );
 
-    ChipLogDetail(Zcl, "WiFi provisioning data: SSID: %.*s", static_cast<int>(ssid.size()), ssid.data());
+    ChipLogDetail(Zcl, "yujuan: WiFi provisioning data: SSID: %.*s", static_cast<int>(ssid.size()), ssid.data());
+    ChipLogDetail(Zcl, "yujuan: WiFi provisioning data: Key: %.*s", static_cast<int>(credentials.size()), credentials.data());    
 exit:
     // TODO: We should encode response command here.
 
-    ChipLogDetail(Zcl, "AddWiFiNetwork: %" PRIu8, err);
+    ChipLogDetail(Zcl, "yujuan: AddWiFiNetwork: %" PRIu8, err);
     return err;
 #else
     // The target does not supports WiFiNetwork.
@@ -215,6 +216,8 @@ exit:
 namespace {
 CHIP_ERROR DoEnableNetwork(NetworkInfo * network)
 {
+    ChipLogProgress(Zcl, "yujuan: DoEnableNetwork");
+
     switch (network->mNetworkType)
     {
     case NetworkType::kThread:
@@ -236,6 +239,10 @@ CHIP_ERROR DoEnableNetwork(NetworkInfo * network)
         // TODO: Currently, DeviceNetworkProvisioningDelegateImpl assumes that ssid and credentials are null terminated strings,
         // which is not correct, this should be changed once we have better method for commissioning wifi networks.
         DeviceLayer::DeviceNetworkProvisioningDelegateImpl deviceDelegate;
+
+        ChipLogProgress(Zcl, "yujuan: DoEnableNetwork: ssid:%s", reinterpret_cast<const char *>(network->mData.mWiFi.mSSID));
+        ChipLogProgress(Zcl, "yujuan: DoEnableNetwork: key:%s", reinterpret_cast<const char *>(network->mData.mWiFi.mCredentials));        
+
         ReturnErrorOnFailure(deviceDelegate.ProvisionWiFi(reinterpret_cast<const char *>(network->mData.mWiFi.mSSID),
                                                           reinterpret_cast<const char *>(network->mData.mWiFi.mCredentials)));
         break;

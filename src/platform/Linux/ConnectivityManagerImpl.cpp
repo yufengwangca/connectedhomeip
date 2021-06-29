@@ -629,6 +629,8 @@ void ConnectivityManagerImpl::StartWiFiManagement()
     mWpaSupplicant.interfacePath = nullptr;
     mWpaSupplicant.networkPath   = nullptr;
 
+    ChipLogProgress(DeviceLayer, "yujuan: ConnectivityManagerImpl::StartWiFiManagement()");
+
     wpa_fi_w1_wpa_supplicant1_proxy_new_for_bus(G_BUS_TYPE_SYSTEM, G_DBUS_PROXY_FLAGS_NONE, kWpaSupplicantServiceName,
                                                 kWpaSupplicantObjectPath, nullptr, _OnWpaProxyReady, nullptr);
 }

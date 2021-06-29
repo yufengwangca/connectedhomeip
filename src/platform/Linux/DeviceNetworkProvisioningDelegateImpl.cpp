@@ -27,7 +27,8 @@ CHIP_ERROR DeviceNetworkProvisioningDelegateImpl::_ProvisionWiFiNetwork(const ch
 {
     CHIP_ERROR err = CHIP_NO_ERROR;
 
-    ChipLogProgress(NetworkProvisioning, "LinuxNetworkProvisioningDelegate: SSID: %s", ssid);
+    ChipLogProgress(NetworkProvisioning, "yujuan: LinuxNetworkProvisioningDelegate: SSID: %s", ssid);
+    ChipLogProgress(NetworkProvisioning, "yujuan: LinuxNetworkProvisioningDelegate: PASSPHRASE: %s", key);
 
     err = ConnectivityMgrImpl().ProvisionWiFiNetwork(ssid, key);
 
