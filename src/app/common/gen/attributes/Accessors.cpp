@@ -4810,41 +4810,49 @@ namespace RelativeHumidityMeasurement {
 namespace Attributes {
 EmberAfStatus GetMeasuredValue(chip::EndpointId endpoint, uint16_t * measuredValue)
 {
+    ChipLogError(Zcl, "yujuan:GetMeasuredValue");
     return emberAfReadServerAttribute(endpoint, RelativeHumidityMeasurement::Id, Ids::MeasuredValue, (uint8_t *) measuredValue,
                                       sizeof(*measuredValue));
 }
 EmberAfStatus SetMeasuredValue(chip::EndpointId endpoint, uint16_t measuredValue)
 {
+    ChipLogError(Zcl, "yujuan:SetMeasuredValue");
     return emberAfWriteServerAttribute(endpoint, RelativeHumidityMeasurement::Id, Ids::MeasuredValue, (uint8_t *) &measuredValue,
                                        ZCL_INT16U_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetMinMeasuredValue(chip::EndpointId endpoint, uint16_t * minMeasuredValue)
 {
+    ChipLogError(Zcl, "yujuan:GetMinMeasuredValue");
     return emberAfReadServerAttribute(endpoint, RelativeHumidityMeasurement::Id, Ids::MinMeasuredValue,
                                       (uint8_t *) minMeasuredValue, sizeof(*minMeasuredValue));
 }
 EmberAfStatus SetMinMeasuredValue(chip::EndpointId endpoint, uint16_t minMeasuredValue)
 {
+    ChipLogError(Zcl, "yujuan:SetMinMeasuredValue");
     return emberAfWriteServerAttribute(endpoint, RelativeHumidityMeasurement::Id, Ids::MinMeasuredValue,
                                        (uint8_t *) &minMeasuredValue, ZCL_INT16U_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetMaxMeasuredValue(chip::EndpointId endpoint, uint16_t * maxMeasuredValue)
 {
+    ChipLogError(Zcl, "yujuan:GetMaxMeasuredValue");
     return emberAfReadServerAttribute(endpoint, RelativeHumidityMeasurement::Id, Ids::MaxMeasuredValue,
                                       (uint8_t *) maxMeasuredValue, sizeof(*maxMeasuredValue));
 }
 EmberAfStatus SetMaxMeasuredValue(chip::EndpointId endpoint, uint16_t maxMeasuredValue)
 {
+    ChipLogError(Zcl, "yujuan:SetMaxMeasuredValue");
     return emberAfWriteServerAttribute(endpoint, RelativeHumidityMeasurement::Id, Ids::MaxMeasuredValue,
                                        (uint8_t *) &maxMeasuredValue, ZCL_INT16U_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetTolerance(chip::EndpointId endpoint, uint16_t * tolerance)
 {
+    ChipLogError(Zcl, "yujuan:GetTolerance");
     return emberAfReadServerAttribute(endpoint, RelativeHumidityMeasurement::Id, Ids::Tolerance, (uint8_t *) tolerance,
                                       sizeof(*tolerance));
 }
 EmberAfStatus SetTolerance(chip::EndpointId endpoint, uint16_t tolerance)
 {
+    ChipLogError(Zcl, "yujuan:SetTolerance");
     return emberAfWriteServerAttribute(endpoint, RelativeHumidityMeasurement::Id, Ids::Tolerance, (uint8_t *) &tolerance,
                                        ZCL_INT16U_ATTRIBUTE_TYPE);
 }

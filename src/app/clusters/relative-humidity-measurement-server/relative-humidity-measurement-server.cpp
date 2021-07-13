@@ -33,6 +33,7 @@
 
 EmberAfStatus emberAfRelativeHumidityMeasurementClusterGetMeasuredValue(chip::EndpointId endpoint, uint16_t * measuredValue)
 {
+    ChipLogError(Zcl, "yujuan:emberAfRelativeHumidityMeasurementClusterGetMeasuredValue");
     return emberAfReadServerAttribute(endpoint, ZCL_RELATIVE_HUMIDITY_MEASUREMENT_CLUSTER_ID,
                                       ZCL_RELATIVE_HUMIDITY_MEASURED_VALUE_ATTRIBUTE_ID, (uint8_t *) measuredValue,
                                       sizeof(*measuredValue));
@@ -40,6 +41,7 @@ EmberAfStatus emberAfRelativeHumidityMeasurementClusterGetMeasuredValue(chip::En
 
 EmberAfStatus emberAfRelativeHumidityMeasurementClusterGetMinMeasuredValue(chip::EndpointId endpoint, uint16_t * minMeasuredValue)
 {
+    ChipLogError(Zcl, "yujuan:emberAfRelativeHumidityMeasurementClusterGetMinMeasuredValue");
     return emberAfReadServerAttribute(endpoint, ZCL_RELATIVE_HUMIDITY_MEASUREMENT_CLUSTER_ID,
                                       ZCL_RELATIVE_HUMIDITY_MIN_MEASURED_VALUE_ATTRIBUTE_ID, (uint8_t *) minMeasuredValue,
                                       sizeof(*minMeasuredValue));
@@ -47,6 +49,7 @@ EmberAfStatus emberAfRelativeHumidityMeasurementClusterGetMinMeasuredValue(chip:
 
 EmberAfStatus emberAfRelativeHumidityMeasurementClusterGetMaxMeasuredValue(chip::EndpointId endpoint, uint16_t * maxMeasuredValue)
 {
+    ChipLogError(Zcl, "yujuan:emberAfRelativeHumidityMeasurementClusterGetMaxMeasuredValue");
     return emberAfReadServerAttribute(endpoint, ZCL_RELATIVE_HUMIDITY_MEASUREMENT_CLUSTER_ID,
                                       ZCL_RELATIVE_HUMIDITY_MAX_MEASURED_VALUE_ATTRIBUTE_ID, (uint8_t *) maxMeasuredValue,
                                       sizeof(*maxMeasuredValue));
@@ -54,6 +57,7 @@ EmberAfStatus emberAfRelativeHumidityMeasurementClusterGetMaxMeasuredValue(chip:
 
 EmberAfStatus emberAfRelativeHumidityMeasurementClusterSetMeasuredValueCallback(chip::EndpointId endpoint, uint16_t measuredValue)
 {
+    ChipLogError(Zcl, "yujuan:emberAfRelativeHumidityMeasurementClusterSetMeasuredValueCallback");
     return emberAfWriteServerAttribute(endpoint, ZCL_RELATIVE_HUMIDITY_MEASUREMENT_CLUSTER_ID,
                                        ZCL_RELATIVE_HUMIDITY_MEASURED_VALUE_ATTRIBUTE_ID, (uint8_t *) &measuredValue,
                                        ZCL_INT16U_ATTRIBUTE_TYPE);
@@ -62,6 +66,7 @@ EmberAfStatus emberAfRelativeHumidityMeasurementClusterSetMeasuredValueCallback(
 EmberAfStatus emberAfRelativeHumidityMeasurementClusterSetMinMeasuredValueCallback(chip::EndpointId endpoint,
                                                                                    uint16_t minMeasuredValue)
 {
+    ChipLogError(Zcl, "yujuan:emberAfRelativeHumidityMeasurementClusterSetMinMeasuredValueCallback");
     return emberAfWriteServerAttribute(endpoint, ZCL_RELATIVE_HUMIDITY_MEASUREMENT_CLUSTER_ID,
                                        ZCL_RELATIVE_HUMIDITY_MIN_MEASURED_VALUE_ATTRIBUTE_ID, (uint8_t *) &minMeasuredValue,
                                        ZCL_INT16U_ATTRIBUTE_TYPE);
@@ -70,6 +75,7 @@ EmberAfStatus emberAfRelativeHumidityMeasurementClusterSetMinMeasuredValueCallba
 EmberAfStatus emberAfRelativeHumidityMeasurementClusterSetMaxMeasuredValueCallback(chip::EndpointId endpoint,
                                                                                    uint16_t maxMeasuredValue)
 {
+    ChipLogError(Zcl, "yujuan:emberAfRelativeHumidityMeasurementClusterSetMaxMeasuredValueCallback");
     return emberAfWriteServerAttribute(endpoint, ZCL_RELATIVE_HUMIDITY_MEASUREMENT_CLUSTER_ID,
                                        ZCL_RELATIVE_HUMIDITY_MAX_MEASURED_VALUE_ATTRIBUTE_ID, (uint8_t *) &maxMeasuredValue,
                                        ZCL_INT16U_ATTRIBUTE_TYPE);
