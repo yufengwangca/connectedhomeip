@@ -26,36 +26,48 @@ using namespace chip;
 // Cluster Init Functions
 void emberAfClusterInitCallback(EndpointId endpoint, ClusterId clusterId)
 {
+    ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback");
+
     switch (clusterId)
     {
     case ZCL_ACCOUNT_LOGIN_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_ACCOUNT_LOGIN_CLUSTER_ID");       
         emberAfAccountLoginClusterInitCallback(endpoint);
         break;
     case ZCL_APPLICATION_BASIC_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_APPLICATION_BASIC_CLUSTER_ID");
         emberAfApplicationBasicClusterInitCallback(endpoint);
         break;
     case ZCL_APPLICATION_LAUNCHER_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_APPLICATION_LAUNCHER_CLUSTER_ID");     
         emberAfApplicationLauncherClusterInitCallback(endpoint);
         break;
     case ZCL_AUDIO_OUTPUT_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_AUDIO_OUTPUT_CLUSTER_ID");    
         emberAfAudioOutputClusterInitCallback(endpoint);
         break;
     case ZCL_BARRIER_CONTROL_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_BARRIER_CONTROL_CLUSTER_ID");    
         emberAfBarrierControlClusterInitCallback(endpoint);
         break;
     case ZCL_BASIC_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_BASIC_CLUSTER_ID");     
         emberAfBasicClusterInitCallback(endpoint);
         break;
     case ZCL_BINARY_INPUT_BASIC_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_BINARY_INPUT_BASIC_CLUSTER_ID"); 
         emberAfBinaryInputBasicClusterInitCallback(endpoint);
         break;
     case ZCL_BINDING_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_BINDING_CLUSTER_ID"); 
         emberAfBindingClusterInitCallback(endpoint);
         break;
     case ZCL_BRIDGED_DEVICE_BASIC_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_BRIDGED_DEVICE_BASIC_CLUSTER_ID"); 
         emberAfBridgedDeviceBasicClusterInitCallback(endpoint);
         break;
     case ZCL_COLOR_CONTROL_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_COLOR_CONTROL_CLUSTER_ID"); 
         emberAfColorControlClusterInitCallback(endpoint);
         break;
     case ZCL_CONTENT_LAUNCH_CLUSTER_ID:
@@ -65,6 +77,7 @@ void emberAfClusterInitCallback(EndpointId endpoint, ClusterId clusterId)
         emberAfDescriptorClusterInitCallback(endpoint);
         break;
     case ZCL_DIAGNOSTIC_LOGS_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_DIAGNOSTIC_LOGS_CLUSTER_ID"); 
         emberAfDiagnosticLogsClusterInitCallback(endpoint);
         break;
     case ZCL_DOOR_LOCK_CLUSTER_ID:
@@ -74,6 +87,7 @@ void emberAfClusterInitCallback(EndpointId endpoint, ClusterId clusterId)
         emberAfElectricalMeasurementClusterInitCallback(endpoint);
         break;
     case ZCL_ETHERNET_NETWORK_DIAGNOSTICS_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_ETHERNET_NETWORK_DIAGNOSTICS_CLUSTER_ID"); 
         emberAfEthernetNetworkDiagnosticsClusterInitCallback(endpoint);
         break;
     case ZCL_FIXED_LABEL_CLUSTER_ID:
@@ -83,9 +97,11 @@ void emberAfClusterInitCallback(EndpointId endpoint, ClusterId clusterId)
         emberAfFlowMeasurementClusterInitCallback(endpoint);
         break;
     case ZCL_GENERAL_COMMISSIONING_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_GENERAL_COMMISSIONING_CLUSTER_ID"); 
         emberAfGeneralCommissioningClusterInitCallback(endpoint);
         break;
     case ZCL_GENERAL_DIAGNOSTICS_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_GENERAL_DIAGNOSTICS_CLUSTER_ID"); 
         emberAfGeneralDiagnosticsClusterInitCallback(endpoint);
         break;
     case ZCL_GROUP_KEY_MANAGEMENT_CLUSTER_ID:
@@ -125,6 +141,7 @@ void emberAfClusterInitCallback(EndpointId endpoint, ClusterId clusterId)
         emberAfOnOffClusterInitCallback(endpoint);
         break;
     case ZCL_OPERATIONAL_CREDENTIALS_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_OPERATIONAL_CREDENTIALS_CLUSTER_ID"); 
         emberAfOperationalCredentialsClusterInitCallback(endpoint);
         break;
     case ZCL_PRESSURE_MEASUREMENT_CLUSTER_ID:
@@ -134,12 +151,14 @@ void emberAfClusterInitCallback(EndpointId endpoint, ClusterId clusterId)
         emberAfPumpConfigurationAndControlClusterInitCallback(endpoint);
         break;
     case ZCL_RELATIVE_HUMIDITY_MEASUREMENT_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_RELATIVE_HUMIDITY_MEASUREMENT_CLUSTER_ID"); 
         emberAfRelativeHumidityMeasurementClusterInitCallback(endpoint);
         break;
     case ZCL_SCENES_CLUSTER_ID:
         emberAfScenesClusterInitCallback(endpoint);
         break;
     case ZCL_SOFTWARE_DIAGNOSTICS_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_SOFTWARE_DIAGNOSTICS_CLUSTER_ID"); 
         emberAfSoftwareDiagnosticsClusterInitCallback(endpoint);
         break;
     case ZCL_SWITCH_CLUSTER_ID:
@@ -161,12 +180,14 @@ void emberAfClusterInitCallback(EndpointId endpoint, ClusterId clusterId)
         emberAfThermostatClusterInitCallback(endpoint);
         break;
     case ZCL_THREAD_NETWORK_DIAGNOSTICS_CLUSTER_ID:
+        ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_THREAD_NETWORK_DIAGNOSTICS_CLUSTER_ID"); 
         emberAfThreadNetworkDiagnosticsClusterInitCallback(endpoint);
         break;
     case ZCL_WAKE_ON_LAN_CLUSTER_ID:
         emberAfWakeOnLanClusterInitCallback(endpoint);
         break;
     case ZCL_WIFI_NETWORK_DIAGNOSTICS_CLUSTER_ID:
+            ChipLogError(Zcl, "yujuan:emberAfClusterInitCallback:ZCL_WIFI_NETWORK_DIAGNOSTICS_CLUSTER_ID"); 
         emberAfWiFiNetworkDiagnosticsClusterInitCallback(endpoint);
         break;
     case ZCL_WINDOW_COVERING_CLUSTER_ID:
