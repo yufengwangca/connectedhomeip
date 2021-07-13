@@ -249,6 +249,8 @@ static uint32_t calculateDelayMs(EndpointId endpoint, uint8_t targetPosition, bo
 
 void emberAfBarrierControlClusterServerTickCallback(EndpointId endpoint)
 {
+    ChipLogError(Zcl, "yujuan:emberAfBarrierControlClusterServerTickCallback");
+
     if (state.currentPosition == state.targetPosition)
     {
         emAfPluginBarrierControlServerSetBarrierPosition(endpoint, state.currentPosition);
@@ -301,6 +303,8 @@ bool emberAfBarrierControlClusterBarrierControlGoToPercentCallback(chip::app::Co
     EndpointId endpoint  = emberAfCurrentCommand()->apsFrame->destinationEndpoint;
     EmberAfStatus status = EMBER_ZCL_STATUS_SUCCESS;
 
+    ChipLogError(Zcl, "yujuan:emberAfBarrierControlClusterBarrierControlGoToPercentCallback");
+
     emberAfBarrierControlClusterPrintln("RX: GoToPercentCallback p=%d", percentOpen);
 
     if (isRemoteLockoutOn(endpoint))
@@ -340,6 +344,8 @@ bool emberAfBarrierControlClusterBarrierControlGoToPercentCallback(chip::app::Co
 
 bool emberAfBarrierControlClusterBarrierControlStopCallback(chip::app::CommandHandler * commandObj)
 {
+    ChipLogError(Zcl, "yujuan:emberAfBarrierControlClusterBarrierControlStopCallback");
+
     EndpointId endpoint = emberAfCurrentCommand()->apsFrame->destinationEndpoint;
     emberAfDeactivateServerTick(endpoint, BarrierControl::Id);
     setMovingState(endpoint, EMBER_ZCL_BARRIER_CONTROL_MOVING_STATE_STOPPED);
