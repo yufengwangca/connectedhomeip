@@ -1283,66 +1283,80 @@ namespace Basic {
 namespace Attributes {
 EmberAfStatus GetInteractionModelVersion(chip::EndpointId endpoint, uint16_t * interactionModelVersion)
 {
+    ChipLogError(Zcl, "yujuan:GetInteractionModelVersion");
     return emberAfReadServerAttribute(endpoint, Basic::Id, Ids::InteractionModelVersion, (uint8_t *) interactionModelVersion,
                                       sizeof(*interactionModelVersion));
 }
 EmberAfStatus SetInteractionModelVersion(chip::EndpointId endpoint, uint16_t interactionModelVersion)
 {
+    ChipLogError(Zcl, "yujuan:SetInteractionModelVersion");
     return emberAfWriteServerAttribute(endpoint, Basic::Id, Ids::InteractionModelVersion, (uint8_t *) &interactionModelVersion,
                                        ZCL_INT16U_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetVendorID(chip::EndpointId endpoint, uint16_t * vendorID)
 {
+    ChipLogError(Zcl, "yujuan:GetVendorID");
     return emberAfReadServerAttribute(endpoint, Basic::Id, Ids::VendorID, (uint8_t *) vendorID, sizeof(*vendorID));
 }
 EmberAfStatus SetVendorID(chip::EndpointId endpoint, uint16_t vendorID)
 {
+    ChipLogError(Zcl, "yujuan:SetVendorID");
     return emberAfWriteServerAttribute(endpoint, Basic::Id, Ids::VendorID, (uint8_t *) &vendorID, ZCL_INT16U_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetProductID(chip::EndpointId endpoint, uint16_t * productID)
 {
+    ChipLogError(Zcl, "yujuan:GetProductID");
     return emberAfReadServerAttribute(endpoint, Basic::Id, Ids::ProductID, (uint8_t *) productID, sizeof(*productID));
 }
 EmberAfStatus SetProductID(chip::EndpointId endpoint, uint16_t productID)
 {
+    ChipLogError(Zcl, "yujuan:SetProductID");
     return emberAfWriteServerAttribute(endpoint, Basic::Id, Ids::ProductID, (uint8_t *) &productID, ZCL_INT16U_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetHardwareVersion(chip::EndpointId endpoint, uint16_t * hardwareVersion)
 {
+    ChipLogError(Zcl, "yujuan:GetHardwareVersion");
     return emberAfReadServerAttribute(endpoint, Basic::Id, Ids::HardwareVersion, (uint8_t *) hardwareVersion,
                                       sizeof(*hardwareVersion));
 }
 EmberAfStatus SetHardwareVersion(chip::EndpointId endpoint, uint16_t hardwareVersion)
 {
+    ChipLogError(Zcl, "yujuan:SetHardwareVersion");
     return emberAfWriteServerAttribute(endpoint, Basic::Id, Ids::HardwareVersion, (uint8_t *) &hardwareVersion,
                                        ZCL_INT16U_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetSoftwareVersion(chip::EndpointId endpoint, uint32_t * softwareVersion)
 {
+    ChipLogError(Zcl, "yujuan:GetSoftwareVersion");
     return emberAfReadServerAttribute(endpoint, Basic::Id, Ids::SoftwareVersion, (uint8_t *) softwareVersion,
                                       sizeof(*softwareVersion));
 }
 EmberAfStatus SetSoftwareVersion(chip::EndpointId endpoint, uint32_t softwareVersion)
 {
+    ChipLogError(Zcl, "yujuan:SetSoftwareVersion");
     return emberAfWriteServerAttribute(endpoint, Basic::Id, Ids::SoftwareVersion, (uint8_t *) &softwareVersion,
                                        ZCL_INT32U_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetLocalConfigDisabled(chip::EndpointId endpoint, uint8_t * localConfigDisabled)
 {
+    ChipLogError(Zcl, "yujuan:GetLocalConfigDisabled");
     return emberAfReadServerAttribute(endpoint, Basic::Id, Ids::LocalConfigDisabled, (uint8_t *) localConfigDisabled,
                                       sizeof(*localConfigDisabled));
 }
 EmberAfStatus SetLocalConfigDisabled(chip::EndpointId endpoint, uint8_t localConfigDisabled)
 {
+    ChipLogError(Zcl, "yujuan:SetLocalConfigDisabled");
     return emberAfWriteServerAttribute(endpoint, Basic::Id, Ids::LocalConfigDisabled, (uint8_t *) &localConfigDisabled,
                                        ZCL_BOOLEAN_ATTRIBUTE_TYPE);
 }
 EmberAfStatus GetReachable(chip::EndpointId endpoint, uint8_t * reachable)
 {
+    ChipLogError(Zcl, "yujuan:GetReachable");
     return emberAfReadServerAttribute(endpoint, Basic::Id, Ids::Reachable, (uint8_t *) reachable, sizeof(*reachable));
 }
 EmberAfStatus SetReachable(chip::EndpointId endpoint, uint8_t reachable)
 {
+    ChipLogError(Zcl, "yujuan:SetReachable");
     return emberAfWriteServerAttribute(endpoint, Basic::Id, Ids::Reachable, (uint8_t *) &reachable, ZCL_BOOLEAN_ATTRIBUTE_TYPE);
 }
 } // namespace Attributes

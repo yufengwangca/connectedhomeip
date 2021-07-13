@@ -53,6 +53,8 @@ void emberAfBasicClusterServerInitCallback(chip::EndpointId endpoint)
     char cString[65];
     uint8_t zclString[65];
 
+    ChipLogError(Zcl, "yujuan:emberAfBasicClusterServerInitCallback");
+
     if (ConfigurationMgr().GetVendorName(cString, sizeof(cString)) == CHIP_NO_ERROR)
     {
         emberAfWriteAttribute(endpoint, ZCL_BASIC_CLUSTER_ID, ZCL_VENDOR_NAME_ATTRIBUTE_ID, CLUSTER_MASK_SERVER,
