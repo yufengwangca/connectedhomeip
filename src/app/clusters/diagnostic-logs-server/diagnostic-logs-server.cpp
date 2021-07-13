@@ -21,6 +21,8 @@
 bool emberAfDiagnosticLogsClusterRetrieveLogsRequestCallback(chip::app::CommandHandler * commandObj, uint8_t intent,
                                                              uint8_t requestedProtocol, chip::ByteSpan transferFileDesignator)
 {
+    ChipLogError(Zcl, "yujuan:emberAfDiagnosticLogsClusterRetrieveLogsRequestCallback");
+
     EmberAfStatus status = EMBER_ZCL_STATUS_SUCCESS;
     emberAfSendImmediateDefaultResponse(status);
     return true;

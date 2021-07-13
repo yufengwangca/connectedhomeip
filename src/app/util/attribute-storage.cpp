@@ -1137,6 +1137,8 @@ uint8_t emberAfGetClustersFromEndpoint(EndpointId endpoint, ClusterId * clusterL
 
 void emberAfInitializeAttributes(EndpointId endpoint)
 {
+    ChipLogError(Zcl, "yujuan:emberAfInitializeAttributes");
+
     emAfLoadAttributeDefaults(endpoint, false);
 }
 
