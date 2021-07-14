@@ -268,7 +268,7 @@ CHIP_ERROR Layer::StartTimer(uint32_t aMilliseconds, TimerCompleteFunct aComplet
     lReturn = lTimer->Start(aMilliseconds, aComplete, aAppState);
     if (lReturn != CHIP_NO_ERROR)
     {
-        lTimer->Release();
+        Timer::sPool.Release(lTimer);
     }
 
 exit:
@@ -350,7 +350,7 @@ CHIP_ERROR Layer::ScheduleWork(TimerCompleteFunct aComplete, void * aAppState)
     lReturn = lTimer->ScheduleWork(aComplete, aAppState);
     if (lReturn != CHIP_NO_ERROR)
     {
-        lTimer->Release();
+        Timer::sPool.Release(lTimer);
     }
 
 exit:

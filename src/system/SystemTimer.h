@@ -66,7 +66,6 @@ public:
 
     Timer() = default;
     CHIP_ERROR Start(uint32_t aDelayMilliseconds, OnCompleteFunct aOnComplete, void * aAppState);
-    CHIP_ERROR Cancel();
 
     static void GetStatistics(chip::System::Stats::count_t & aNumInUse, chip::System::Stats::count_t & aHighWatermark);
 
@@ -77,6 +76,7 @@ private:
 
     void HandleComplete();
 
+    CHIP_ERROR Cancel();
     CHIP_ERROR ScheduleWork(OnCompleteFunct aOnComplete, void * aAppState);
 
 #if CHIP_SYSTEM_CONFIG_USE_LWIP

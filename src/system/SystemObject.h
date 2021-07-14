@@ -38,9 +38,11 @@
 #include <unistd.h>
 
 #include <memory>
+#include <mutex>
 #include <vector>
 
 #include <support/DLLUtil.h>
+#include <support/logging/CHIPLogging.h>
 
 #include <system/SystemError.h>
 #include <system/SystemStats.h>
@@ -86,8 +88,12 @@ public:
     bool IsRetained(const Layer & aLayer) const;
 
     void Retain();
-    void Release();
     Layer & SystemLayer() const;
+
+#if CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
+private:
+#endif
+    void Release();
 
 protected:
 #if CHIP_SYSTEM_CONFIG_USE_LWIP
@@ -179,21 +185,23 @@ public:
 
     T * Get(const Layer & aLayer, size_t aIndex);
     T * TryCreate(Layer & aLayer);
+    void Release(T * pObj);
     void GetStatistics(chip::System::Stats::count_t & aNumInUse, chip::System::Stats::count_t & aHighWatermark);
 
 private:
     friend class TestObject;
 
 #if CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
+    std::mutex mtx;
     std::vector<std::unique_ptr<T>> mObjects;
 #else
     ObjectArena<void *, N * sizeof(T)> mArena;
-#endif
 
 #if CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS
     void GetNumObjectsInUse(unsigned int aStartIndex, unsigned int & aNumInUse);
     void UpdateHighWatermark(const unsigned int & aCandidate);
     volatile unsigned int mHighWatermark;
+#endif
 #endif
 };
 
@@ -201,14 +209,16 @@ template <class T, unsigned int N>
 inline void ObjectPool<T, N>::Reset()
 {
 #if CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
+    mtx.lock();
     mObjects.clear();
+    mtx.unlock();
 #else
-    static_assert(std::is_trivial<T>::value, "Types used in ObjectPool must be trivial");
+    // static_assert(std::is_trivial<T>::value, "Types used in ObjectPool must be trivial");
     memset(mArena.uMemory, 0, N * sizeof(T));
-#endif
 
 #if CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS
     mHighWatermark = 0;
+#endif
 #endif
 }
 
@@ -231,14 +241,12 @@ inline T * ObjectPool<T, N>::Get(const Layer & aLayer, size_t aIndex)
 {
     T * lReturn = nullptr;
 
-    if (aIndex < N)
-    {
 #if CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
-        lReturn = aIndex < mObjects.size() ? mObjects[aIndex].get() : nullptr;
+    lReturn = aIndex < mObjects.size() ? mObjects[aIndex].get() : nullptr;
 #else
+    if (aIndex < N)
         lReturn = &reinterpret_cast<T *>(mArena.uMemory)[aIndex];
 #endif
-    }
 
     (void) static_cast<Object *>(lReturn); /* In C++-11, this would be a static_assert that T inherits Object. */
 
@@ -253,28 +261,19 @@ template <class T, unsigned int N>
 inline T * ObjectPool<T, N>::TryCreate(Layer & aLayer)
 {
     T * lReturn = nullptr;
-    unsigned int lIndex;
 
 #if CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
-    for (lIndex = 0; lIndex < mObjects.size(); ++lIndex)
-    {
-        if (mObjects[lIndex]->TryCreate(aLayer, sizeof(T)))
-        {
-            lReturn = mObjects[lIndex].get();
-            break;
-        }
-    }
+    mtx.lock();
+    mObjects.push_back(std::unique_ptr<T>(new T()));
 
-    if (lReturn == nullptr && mObjects.size() < N)
+    if (mObjects.back()->TryCreate(aLayer, sizeof(T)))
     {
-        mObjects.push_back(std::unique_ptr<T>(new T()));
-
-        if (mObjects.back()->TryCreate(aLayer, sizeof(T)))
-        {
-            lReturn = mObjects.back().get();
-        }
+        lReturn = mObjects.back().get();
     }
-#else  // CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
+    mtx.unlock();
+#else // CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
+    unsigned int lIndex = 0;
+
     for (lIndex = 0; lIndex < N; ++lIndex)
     {
         T & lObject = reinterpret_cast<T *>(mArena.uMemory)[lIndex];
@@ -285,7 +284,6 @@ inline T * ObjectPool<T, N>::TryCreate(Layer & aLayer)
             break;
         }
     }
-#endif // CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
 
 #if CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS
     unsigned int lNumInUse = 0;
@@ -303,11 +301,49 @@ inline T * ObjectPool<T, N>::TryCreate(Layer & aLayer)
 
     UpdateHighWatermark(lNumInUse);
 #endif
+#endif // CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
 
     return lReturn;
 }
 
-#if CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS
+template <class T, unsigned int N>
+inline void ObjectPool<T, N>::Release(T * pObj)
+{
+#if CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
+    mtx.lock();
+
+    bool found = false;
+    auto iter  = mObjects.begin();
+
+    while (iter != mObjects.end())
+    {
+        if (pObj == iter->get())
+        {
+            pObj->Release();
+            found = true;
+            break;
+        }
+        iter++;
+    }
+
+    if (found && pObj->mSystemLayer == nullptr)
+    {
+        mObjects.erase(iter);
+    }
+
+    mtx.unlock();
+#else  // CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
+    for (unsigned int lIndex = 0; lIndex < N; ++lIndex)
+    {
+        if (pObj == &reinterpret_cast<T *>(mArena.uMemory)[lIndex])
+        {
+            pObj->Release();
+        }
+    }
+#endif // CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
+}
+
+#if CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS && !CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
 template <class T, unsigned int N>
 inline void ObjectPool<T, N>::UpdateHighWatermark(const unsigned int & aCandidate)
 {
@@ -333,22 +369,6 @@ inline void ObjectPool<T, N>::GetNumObjectsInUse(unsigned int aStartIndex, unsig
 {
     unsigned int count = 0;
 
-#if CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
-    for (unsigned int lIndex = aStartIndex; lIndex < mObjects.size(); ++lIndex)
-    {
-        if (mObjects[lIndex]->mSystemLayer != nullptr)
-        {
-            count++;
-        }
-    }
-
-    if (aStartIndex == 0)
-    {
-        aNumInUse = 0;
-    }
-
-    aNumInUse += count;
-#else
     for (unsigned int lIndex = aStartIndex; lIndex < N; ++lIndex)
     {
         T & lObject = reinterpret_cast<T *>(mArena.uMemory)[lIndex];
@@ -365,14 +385,13 @@ inline void ObjectPool<T, N>::GetNumObjectsInUse(unsigned int aStartIndex, unsig
     }
 
     aNumInUse += count;
-#endif
 }
-#endif // CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS
+#endif // CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS && !CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
 
 template <class T, unsigned int N>
 inline void ObjectPool<T, N>::GetStatistics(chip::System::Stats::count_t & aNumInUse, chip::System::Stats::count_t & aHighWatermark)
 {
-#if CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS
+#if CHIP_SYSTEM_CONFIG_PROVIDE_STATISTICS && !CHIP_SYSTEM_CONFIG_POOL_USE_HEAP
     unsigned int lNumInUse;
     unsigned int lHighWatermark;
 
