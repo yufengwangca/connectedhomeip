@@ -296,8 +296,8 @@ bool ExchangeContext::MatchExchange(SecureSessionHandle session, const PacketHea
         // The exchange identifier of the message matches the exchange identifier of the context.
         (mExchangeId == payloadHeader.GetExchangeID())
 
-        // AND The message was received from the peer node associated with the exchange
-        && (mSecureSession == session)
+        // AND The Session ID associated with the incoming message matches the Session ID associated with the exchange.
+        && (mSecureSession.GetPeerKeyId() == session.GetPeerKeyId())
 
         // AND The message's source Node ID matches the peer Node ID associated with the exchange, or the peer Node ID of the
         // exchange is 'any'.
