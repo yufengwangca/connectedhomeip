@@ -116,6 +116,7 @@ CHIP_ERROR ExchangeManager::Shutdown()
 
 ExchangeContext * ExchangeManager::NewContext(SecureSessionHandle session, ExchangeDelegate * delegate)
 {
+    ChipLogError(ExchangeManager, "yujuan:ExchangeManager::NewContext:session:nodeid:%ld, keyid:%d", session.GetPeerNodeId(), session.GetPeerKeyId()); 
     return mContextPool.CreateObject(this, mNextExchangeId++, session, true, delegate);
 }
 
@@ -296,6 +297,8 @@ exit:
 
 void ExchangeManager::OnNewConnection(SecureSessionHandle session)
 {
+    ChipLogError(ExchangeManager, "yujuan:ExchangeManager::OnNewConnection:nodeid:%ld, keyid:%d", session.GetPeerNodeId(), session.GetPeerKeyId());
+
     if (mDelegate != nullptr)
     {
         mDelegate->OnNewConnection(session, this);

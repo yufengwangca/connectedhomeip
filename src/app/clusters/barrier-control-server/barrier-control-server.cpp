@@ -85,6 +85,9 @@ void emberAfPluginBarrierControlServerInitCallback(void) {}
 uint8_t emAfPluginBarrierControlServerGetBarrierPosition(EndpointId endpoint)
 {
     uint8_t position;
+
+    ChipLogError(Zcl, "yujuan:emAfPluginBarrierControlServerGetBarrierPosition");
+
     EmberAfStatus status = BarrierControl::Attributes::GetBarrierPosition(endpoint, &position);
     assert(status == EMBER_ZCL_STATUS_SUCCESS);
     return position;
@@ -92,6 +95,8 @@ uint8_t emAfPluginBarrierControlServerGetBarrierPosition(EndpointId endpoint)
 
 void emAfPluginBarrierControlServerSetBarrierPosition(EndpointId endpoint, uint8_t position)
 {
+    ChipLogError(Zcl, "yujuan:emAfPluginBarrierControlServerSetBarrierPosition");
+
     EmberAfStatus status = BarrierControl::Attributes::SetBarrierPosition(endpoint, position);
     assert(status == EMBER_ZCL_STATUS_SUCCESS);
 }

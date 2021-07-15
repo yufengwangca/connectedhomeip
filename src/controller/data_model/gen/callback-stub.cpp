@@ -770,7 +770,9 @@ emberAfPreAttributeChangeCallback(EndpointId endpoint, ClusterId clusterId, Attr
 void __attribute__((weak))
 emberAfPostAttributeChangeCallback(EndpointId endpoint, ClusterId clusterId, AttributeId attributeId, uint8_t mask,
                                    uint16_t manufacturerCode, uint8_t type, uint16_t size, uint8_t * value)
-{}
+{
+    ChipLogError(Zcl, "yujuan:callback-stub:emberAfPostAttributeChangeCallback");    
+}
 
 /** @brief External Attribute Read
  *
@@ -813,6 +815,7 @@ EmberAfStatus __attribute__((weak))
 emberAfExternalAttributeReadCallback(EndpointId endpoint, ClusterId clusterId, EmberAfAttributeMetadata * attributeMetadata,
                                      uint16_t manufacturerCode, uint8_t * buffer, uint16_t maxReadLength, int32_t index)
 {
+    ChipLogError(Zcl, "yujuan:callback-stub:emberAfExternalAttributeReadCallback"); 
     return EMBER_ZCL_STATUS_FAILURE;
 }
 
@@ -883,6 +886,7 @@ EmberAfStatus __attribute__((weak))
 emberAfExternalAttributeWriteCallback(EndpointId endpoint, ClusterId clusterId, EmberAfAttributeMetadata * attributeMetadata,
                                       uint16_t manufacturerCode, uint8_t * buffer, int32_t index)
 {
+    ChipLogError(Zcl, "yujuan:callback-stub:emberAfExternalAttributeWriteCallback"); 
     return EMBER_ZCL_STATUS_FAILURE;
 }
 

@@ -300,6 +300,8 @@ void Device::OnNewConnection(SecureSessionHandle session)
     mState         = ConnectionState::SecureConnected;
     mSecureSession = session;
 
+    ChipLogError(Controller, "yujuan:Device::OnNewConnection:session:nodeid:%ld, keyid:%d", session.GetPeerNodeId(), session.GetPeerKeyId()); 
+
     // Reset the message counters here because this is the first time we get a handle to the secure session.
     // Since CHIPDevices can be serialized/deserialized in the middle of what is conceptually a single PASE session
     // we need to restore the session counters along with the session information.

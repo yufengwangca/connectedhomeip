@@ -224,6 +224,8 @@ ExchangeContext::ExchangeContext(ExchangeManager * em, uint16_t ExchangeId, Secu
 {
     VerifyOrDie(mExchangeMgr == nullptr);
 
+    ChipLogError(ExchangeManager, "yujuan:ExchangeContext:session:nodeid:%ld, keyid:%d", session.GetPeerNodeId(), session.GetPeerKeyId());  
+    
     mExchangeMgr   = em;
     mExchangeId    = ExchangeId;
     mSecureSession = session;
@@ -290,6 +292,9 @@ ExchangeContext::~ExchangeContext()
 bool ExchangeContext::MatchExchange(SecureSessionHandle session, const PacketHeader & packetHeader,
                                     const PayloadHeader & payloadHeader)
 {
+    ChipLogError(ExchangeManager, "yujuan:MatchExchange:mSecureSession:nodeid:%ld, keyid:%d", mSecureSession.GetPeerNodeId(), mSecureSession.GetPeerKeyId());
+    ChipLogError(ExchangeManager, "yujuan:MatchExchange:session:nodeid:%ld, keyid:%d", session.GetPeerNodeId(), session.GetPeerKeyId());    
+
     // A given message is part of a particular exchange if...
     return
 

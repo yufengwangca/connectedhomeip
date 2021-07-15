@@ -129,6 +129,7 @@ CHIP_ERROR SecureSessionMgr::BuildEncryptedMessagePayload(SecureSessionHandle se
     Transport::AdminPairingInfo * admin = mAdmins->FindAdminWithId(state->GetAdminId());
     if (admin == nullptr)
     {
+        ChipLogError(ExchangeManager, "yujuan:SecureSessionMgr::BuildEncryptedMessagePayload:CHIP_ERROR_INCORRECT_STATE"); 
         return CHIP_ERROR_INCORRECT_STATE;
     }
 
@@ -160,6 +161,8 @@ CHIP_ERROR SecureSessionMgr::SendPreparedMessage(SecureSessionHandle session, co
     msgBuf = preparedMessage.CastToWritable();
     VerifyOrExit(!msgBuf.IsNull(), err = CHIP_ERROR_INVALID_ARGUMENT);
     VerifyOrExit(!msgBuf->HasChainedBuffer(), err = CHIP_ERROR_INVALID_MESSAGE_LENGTH);
+
+    ChipLogError(ExchangeManager, "yujuan:SecureSessionMgr::SendPreparedMessage:nodeid:%ld, keyid:%d", session.GetPeerNodeId(), session.GetPeerKeyId());    
 
     // Find an active connection to the specified peer node
     state = GetPeerConnectionState(session);

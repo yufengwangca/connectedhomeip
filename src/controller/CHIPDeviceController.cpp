@@ -596,6 +596,8 @@ void DeviceController::OnNewConnection(SecureSessionHandle session, Messaging::E
 {
     VerifyOrReturn(mState == State::Initialized, ChipLogError(Controller, "OnNewConnection was called in incorrect state"));
 
+    ChipLogError(Controller, "yujuan:DeviceController::OnNewConnection:session:nodeid:%ld, keyid:%d", session.GetPeerNodeId(), session.GetPeerKeyId()); 
+
     uint16_t index = FindDeviceIndex(mgr->GetSessionMgr()->GetPeerConnectionState(session)->GetPeerNodeId());
     VerifyOrReturn(index < kNumMaxActiveDevices,
                    ChipLogDetail(Controller, "OnNewConnection was called for unknown device, ignoring it."));
