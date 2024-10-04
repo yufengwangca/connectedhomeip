@@ -235,7 +235,7 @@ void BLEManagerImpl::_OnPlatformEvent(const ChipDeviceEvent * event)
 void BLEManagerImpl::HandlePlatformSpecificBLEEvent(const ChipDeviceEvent * apEvent)
 {
     CHIP_ERROR err = CHIP_NO_ERROR;
-    ChipLogDetail(DeviceLayer, "HandlePlatformSpecificBLEEvent %d", apEvent->Type);
+    // ChipLogDetail(DeviceLayer, "HandlePlatformSpecificBLEEvent %d", apEvent->Type);
     switch (apEvent->Type)
     {
     case DeviceEventType::kPlatformLinuxBLEAdapterAdded:
