@@ -121,7 +121,7 @@ gboolean WiFiIPChangeListener(GIOChannel * ch, GIOCondition /* condition */, voi
 
                         char ipStrBuf[chip::Inet::IPAddress::kMaxStringLength] = { 0 };
                         inet_ntop(AF_INET, RTA_DATA(routeInfo), ipStrBuf, sizeof(ipStrBuf));
-                        ChipLogDetail(DeviceLayer, "Got IP address on interface: %s IP: %s", name, ipStrBuf);
+                        // ChipLogDetail(DeviceLayer, "Got IP address on interface: %s IP: %s", name, ipStrBuf);
 
                         ChipDeviceEvent event{ .Type                       = DeviceEventType::kInternetConnectivityChange,
                                                .InternetConnectivityChange = { .IPv4 = kConnectivity_Established,
