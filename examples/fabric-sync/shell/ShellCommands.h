@@ -1,6 +1,6 @@
 /*
  *
- *    Copyright (c) 2024 Project CHIP Authors
+ *    Copyright (c) 2021 Project CHIP Authors
  *    All rights reserved.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,36 +16,16 @@
  *    limitations under the License.
  */
 
-#include <AppMain.h>
+/**
+ * @brief Contains shell commands for a ContentApp relating to Content App platform of the Video Player.
+ */
 
-#if defined(ENABLE_CHIP_SHELL)
-#include "ShellCommands.h"
-#endif
+#include <platform/CHIPDeviceLayer.h>
 
-using namespace chip;
+namespace chip {
+namespace Shell {
 
-void ApplicationInit()
-{
-    ChipLogProgress(NotSpecified, "Fabric-Sync: ApplicationInit()");
-}
+void RegisterCommands();
 
-void ApplicationShutdown()
-{
-    ChipLogDetail(NotSpecified, "Fabric-Sync: ApplicationShutdown()");
-}
-
-int main(int argc, char * argv[])
-{
-
-    VerifyOrDie(ChipLinuxAppInit(argc, argv) == 0);
-
-#if defined(ENABLE_CHIP_SHELL)
-#if CHIP_DEVICE_CONFIG_APP_PLATFORM_ENABLED
-    Shell::RegisterCommands();
-#endif
-#endif
-
-    ChipLinuxAppMainLoop();
-
-    return 0;
-}
+} // namespace Shell
+} // namespace chip
