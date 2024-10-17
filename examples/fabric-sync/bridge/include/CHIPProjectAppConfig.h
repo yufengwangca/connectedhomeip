@@ -73,8 +73,5 @@
 #define CHIP_CONFIG_EXAMPLE_ACCESS_CONTROL_MAX_SUBJECTS_PER_ENTRY 20
 #define CHIP_CONFIG_EXAMPLE_ACCESS_CONTROL_MAX_ENTRIES_PER_FABRIC 20
 
-// Change port to make it easy to run against tv-casting-app
-#define CHIP_PORT 5640
-
 // Include the CHIPProjectConfig from platform implementation config
 #include <CHIPProjectConfig.h>

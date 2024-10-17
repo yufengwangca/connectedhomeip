@@ -19,7 +19,7 @@
  * @file Contains shell commands for a ContentApp relating to Content App platform of the Video Player.
  */
 
-#include "AppTvShellCommands.h"
+#include "ShellCommands.h"
 
 #include <access/AccessControl.h>
 #include <inttypes.h>
@@ -181,7 +181,7 @@ static CHIP_ERROR AppPlatformHandler(int argc, char ** argv)
     return error;
 }
 
-void RegisterAppTvCommands()
+void RegisterCommands()
 {
 
     static const shell_command_t sDeviceComand = { &AppPlatformHandler, "app", "App commands. Usage: app [command_name]" };

@@ -1,6 +1,6 @@
 /*
  *
- *    Copyright (c) 2020 Project CHIP Authors
+ *    Copyright (c) 2024 Project CHIP Authors
  *    All rights reserved.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@
 #include <app/util/endpoint-config-api.h>
 
 #if defined(ENABLE_CHIP_SHELL)
-#include "AppTvShellCommands.h"
+#include "ShellCommands.h"
 #endif
 
 using namespace chip;
@@ -37,16 +37,13 @@ using namespace chip::app::Clusters;
 
 void ApplicationInit()
 {
-    ChipLogProgress(Zcl, "TV Linux App: ApplicationInit()");
-
-    // Disable last fixed endpoint, which is used as a placeholder for all of the
-    // supported clusters so that ZAP will generated the requisite code.
-    ChipLogDetail(DeviceLayer, "TV Linux App: Warning - Fixed Content App Endpoint Not Disabled");
-    // Can't disable this without breaking CI unit tests that act upon account login cluster (only available on ep3)
-    // emberAfEndpointEnableDisable(3, false);
+    ChipLogProgress(NotSpecified, "Fabric-Sync: ApplicationInit()");
 }
 
-void ApplicationShutdown() {}
+void ApplicationShutdown()
+{
+    ChipLogDetail(NotSpecified, "Fabric-Sync: ApplicationShutdown()");
+}
 
 int main(int argc, char * argv[])
 {
@@ -55,7 +52,7 @@ int main(int argc, char * argv[])
 
 #if defined(ENABLE_CHIP_SHELL)
 #if CHIP_DEVICE_CONFIG_APP_PLATFORM_ENABLED
-    Shell::RegisterAppTvCommands();
+    Shell::RegisterCommands();
 #endif // CHIP_DEVICE_CONFIG_APP_PLATFORM_ENABLED
 #endif
 

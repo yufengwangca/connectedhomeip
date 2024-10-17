@@ -25,7 +25,7 @@
 namespace chip {
 namespace Shell {
 
-void RegisterAppTvCommands();
+void RegisterCommands();
 
 } // namespace Shell
 } // namespace chip
