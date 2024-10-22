@@ -16,36 +16,12 @@
  *    limitations under the License.
  */
 
-#include <AppMain.h>
+#include <platform/CHIPDeviceLayer.h>
 
-#if defined(ENABLE_CHIP_SHELL)
-#include "ShellCommands.h"
-#endif
+namespace chip {
+namespace Shell {
 
-using namespace chip;
+void RegisterCommands();
 
-void ApplicationInit()
-{
-    ChipLogProgress(NotSpecified, "Fabric-Sync: ApplicationInit()");
-}
-
-void ApplicationShutdown()
-{
-    ChipLogDetail(NotSpecified, "Fabric-Sync: ApplicationShutdown()");
-}
-
-int main(int argc, char * argv[])
-{
-
-    VerifyOrDie(ChipLinuxAppInit(argc, argv) == 0);
-
-#if defined(ENABLE_CHIP_SHELL)
-#if CHIP_DEVICE_CONFIG_APP_PLATFORM_ENABLED
-    Shell::RegisterCommands();
-#endif
-#endif
-
-    ChipLinuxAppMainLoop();
-
-    return 0;
-}
+} // namespace Shell
+} // namespace chip
