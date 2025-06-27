@@ -19,14 +19,11 @@
 #include <lib/support/logging/CHIPLogging.h>
 #include <webrtc-transport.h>
 
-WebrtcTransport::WebrtcTransport(uint16_t sessionID, uint64_t nodeID, std::shared_ptr<rtc::PeerConnection> peerConnection)
+WebrtcTransport::WebrtcTransport(uint16_t sessionID, uint64_t nodeID)
 {
     ChipLogProgress(Camera, "WebrtcTransport created for sessionID: %u", sessionID);
-    mSessionID            = sessionID;
-    mNodeID               = nodeID;
-    mPeerConnection       = peerConnection;
-    mVideoSampleTimestamp = 0;
-    mAudioSampleTimestamp = 0;
+    mSessionID = sessionID;
+    mNodeID    = nodeID;
 }
 
 WebrtcTransport::~WebrtcTransport()
@@ -36,13 +33,19 @@ WebrtcTransport::~WebrtcTransport()
 
 void WebrtcTransport::SendVideo(const char * data, size_t size, uint16_t videoStreamID)
 {
-    mVideoTrack->send(reinterpret_cast<const std::byte *>(data), size);
+    if (mVideoTrack)
+    {
+        mVideoTrack->SendData(data, size);
+    }
 }
 
 // Implementation of SendAudio method
 void WebrtcTransport::SendAudio(const char * data, size_t size, uint16_t audioStreamID)
 {
-    mAudioTrack->send(reinterpret_cast<const std::byte *>(data), size);
+    if (mAudioTrack)
+    {
+        mAudioTrack->SendData(data, size);
+    }
 }
 
 // Implementation of SendAudioVideo method
@@ -54,24 +57,24 @@ void WebrtcTransport::SendAudioVideo(const char * data, size_t size, uint16_t vi
 // Implementation of CanSendVideo method
 bool WebrtcTransport::CanSendVideo()
 {
-    return mVideoTrack != nullptr && mPeerConnection != nullptr;
+    return mVideoTrack && mVideoTrack->IsReady();
 }
 
 // Implementation of CanSendAudio method
 bool WebrtcTransport::CanSendAudio()
 {
-    return mAudioTrack != nullptr && mPeerConnection != nullptr;
+    return mAudioTrack && mAudioTrack->IsReady();
 }
 
 // Implementation of SetVideoTrack method
-void WebrtcTransport::SetVideoTrack(std::shared_ptr<rtc::Track> videoTrack)
+void WebrtcTransport::SetVideoTrack(std::shared_ptr<WebRTCTrack> videoTrack)
 {
     ChipLogProgress(Camera, "Setting video track for sessionID: %u", mSessionID);
     mVideoTrack = videoTrack;
 }
 
 // Implementation of SetAudioTrack method
-void WebrtcTransport::SetAudioTrack(std::shared_ptr<rtc::Track> audioTrack)
+void WebrtcTransport::SetAudioTrack(std::shared_ptr<WebRTCTrack> audioTrack)
 {
     ChipLogProgress(Camera, "Setting audio track for sessionID: %u", mSessionID);
     mAudioTrack = audioTrack;
